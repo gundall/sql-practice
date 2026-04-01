@@ -4,12 +4,14 @@ import ResultsTable from './components/ResultsTable';
 import QueryHistory from './components/QueryHistory';
 import SchemaExplorer from './components/SchemaExplorer';
 
-const STARTER = `-- Prueba algunos queries
-SELECT a.title, ar.name AS artist, g.name AS genre, a.price
-FROM albums a
-JOIN artists ar ON ar.id = a.artist_id
-JOIN genres  g  ON g.id  = a.genre_id
-ORDER BY a.price DESC;`;
+const STARTER = `-- Provincias con acceso al mar y su comunidad
+SELECT p.nombre AS provincia, c.Nombre AS comunidad,
+       m.nombre AS mar, b.km_costa
+FROM Provincias p
+JOIN Comunidades c ON c.Nombre = p.comunidad
+JOIN \`Bañan\` b    ON b.cod_prov = p.codigo_prov
+JOIN Mar m         ON m.cod_mar  = b.cod_mar
+ORDER BY b.km_costa DESC;`;
 
 export default function App() {
   const [tab, setTab]         = useState('editor');
@@ -57,7 +59,7 @@ export default function App() {
 
   return (
     <div style={styles.app}>
-      <h1 style={styles.title}>Vinyl Vault — SQL Practice</h1>
+      <h1 style={styles.title}>Geografía de España — SQL Practice</h1>
 
       <div style={styles.tabs}>
         <button
